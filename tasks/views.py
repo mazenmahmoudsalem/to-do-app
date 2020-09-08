@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from . import models
+from django.shortcuts import render, redirect
+from . import models, forms
 
 
 def home(request):
@@ -9,3 +9,14 @@ def home(request):
         task.delete()
     context = {"tasks": tasks}
     return render(request, "index.html", context)
+
+
+def add_task(request):
+    form = forms.add_task_form()
+    if request.method == "POST":
+        form = forms.add_task_form(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect("tasks:home")
+    context = {"form": form}
+    return render(request, "add_task.html", context)
