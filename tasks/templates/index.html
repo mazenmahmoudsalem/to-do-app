@@ -3,11 +3,13 @@
 {% block body %}
 <a href="#">add task</a>
 <ol>
-    <div class="task">
-        <li>one</li>
-        <form>
-            <input type="submit" class="button" value="done1" name="one">
-        </form>
-    </div>
+    {% for task in tasks %}
+        <div class="task">
+            <li>{{task.title}}</li>
+            <form>
+                <input type="submit" class="button" value="done {{task.title}}" name="one">
+            </form>
+        </div>
+    {% endfor %}
 </ol>
 {% endblock body %}
