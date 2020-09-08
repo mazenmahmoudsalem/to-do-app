@@ -1,15 +1,26 @@
 {% extends 'base.html' %}
 {% block title %} home {% endblock title %}
 {% block body %}
-<a href="#">add task</a>
+<a href="{% url 'tasks:add' %}">add task</a>
 <ol>
     {% for task in tasks %}
-        <div class="task">
+    <div class="task">
+        {% if task.is_ended %}
+        <del>
             <li>{{task.title}}</li>
-            <form>
-                <input type="submit" class="button" value="done {{task.title}}" name="one">
-            </form>
-        </div>
+        </del>
+        <form>
+            <input type="submit" class="button" value="undone {{task.title}}" name="undone">
+            <input type="submit" class="button" value="delete {{task.title}}" name="delete">
+        </form>
+        {% else %}
+        <li>{{task.title}}</li>
+        <form>
+            <input type="submit" class="button" value="done {{task.title}}" name="done">
+            <input type="submit" class="button" value="delete {{task.title}}" name="delete">
+        </form>
+        {% endif %}
+    </div>
     {% endfor %}
 </ol>
 {% endblock body %}
