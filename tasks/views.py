@@ -36,3 +36,17 @@ def add_task(request):
     form = forms.add_task_form()
     context = {"form": form}
     return render(request, "add_task.html", context)
+
+
+def update_task(request, id):
+    task = models.task.objects.get(id=id)
+    if request.method == "POST":
+        form = forms.add_task_form(request.POST, instance=task)
+        if form.is_valid():
+            nform = form.save(commit=False)
+            nform.date = int(datetime.datetime.now().strftime("%w"))
+            nform.save()
+            return redirect("tasks:home")
+    form = forms.add_task_form(instance=task)
+    context = {"form": form}
+    return render(request, "update_task.html", context)

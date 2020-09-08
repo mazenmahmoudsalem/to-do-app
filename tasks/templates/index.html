@@ -17,6 +17,7 @@
         <li>{{task.title}}</li>
         <form>
             <input type="submit" class="button" value="done {{task.title}}" name="done">
+            <a href="{% url 'tasks:update' task.id %}">update {{task.title}}</a>
             <input type="submit" class="button" value="delete {{task.title}}" name="delete">
         </form>
         {% endif %}
